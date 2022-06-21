@@ -19,8 +19,34 @@ def make_book(file_name):
             cook_obj.readline()
     return result_book
 
+def get_shop_list_by_dishes(dishes, person_count):
+    result_book = make_book('spisok.txt')
+    result_ingr ={}
+    for dish in dishes:
+        list_ingr = result_book.get(dish)
+        # print (list_ingr)
+        for ingr in list_ingr:
+            # print(ingr)
+            if ingr['ingredient_name'] not in result_ingr.keys():
+                 result_ingr[ingr['ingredient_name']] = {'measure': ingr['measure'], 'quantity': int(ingr['quantity']) * person_count }
+            else:
+                 (result_ingr[ingr['ingredient_name']])['quantity'] += int(ingr['quantity']) * person_count
+    return result_ingr
+
+
+
 pprint(make_book('spisok.txt'), sort_dicts=False, width=180,)
-            
+pprint(get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2),sort_dicts=False, width=180)
+
+
+# {
+#   'Картофель': {'measure': 'кг', 'quantity': 2},
+#   'Молоко': {'measure': 'мл', 'quantity': 200},
+#   'Помидор': {'measure': 'шт', 'quantity': 4},
+#   'Сыр гауда': {'measure': 'г', 'quantity': 200},
+#   'Яйцо': {'measure': 'шт', 'quantity': 4},
+#   'Чеснок': {'measure': 'зубч', 'quantity': 6}
+# }
 
 
             
